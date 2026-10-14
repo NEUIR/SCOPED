@@ -1,0 +1,59 @@
+# Each expert extracts its own skill from its capability's TRAIN split.
+seed: 42
+reward_threshold: 0.5  # gamma in Eq. (5); numerical value is not specified in the PDF.
+sample_per_capability: 1500  # Training questions per capability; -1 explicitly selects all rows.
+rollout_k: 8
+rollout_k_small: 16
+small_subtype_rows: 600
+rollout_temperature: 0.8
+rollout_top_p: 0.95
+rollout_max_tokens: 2048
+rollout_batch: 100
+analyst_temperature: 0.3
+analyst_top_p: 0.9
+analyst_max_tokens: 1024
+success_analyst_cap: 800  # Total per capability/cohort, balanced across subtypes.
+failure_analyst_cap: 400
+author_temperature: 0.2
+author_max_tokens: 4096
+author_attempts: 4
+review_temperature: 0.05
+evidence_per_kind: 40
+max_skill_lines: 55
+image_max_side: 1536
+online_max_workers: 32
+request_timeout: 600
+server_start_timeout: 900
+server_tp: 2
+server_max_model_len: 65536
+server_gpu_memory_utilization: 0.85
+server_max_images: 8
+server_max_num_seqs: 32
+server_max_num_batched_tokens: 8192
+
+capabilities:
+  capability1:
+    description: Fine-grained visual perception, counting, detection and grounding
+    domain_guidance: Transfer observed checks across counting, detection and grounding only when the same visual ambiguity, object-unit or localization failure is supported by the ledgers.
+    sections:
+      Counting: [counting_clevr, pixmo]
+      Detection: [detection_v3det, detection_object365]
+      Grounding: [grounding_dcube]
+  capability2:
+    description: OCR and chart, table and document understanding
+    domain_guidance: Transfer observed checks across text, charts, tables and documents only when the ledgers support the same reading-completeness, value-alignment or cross-region comparison failure.
+    sections:
+      OCR: [ocr_llavaov, ocr_estvqa]
+      Charts and tables: [chart_chartqapro, chart_chartx, chart_tablevqa, chart_virl39k]
+      Documents: [slidevqa]
+  capability3:
+    description: Multimodal mathematical and symbolic reasoning
+    domain_guidance: Transfer observed checks across mathematics and visual puzzles only when the ledgers support the same symbolic, arithmetic or pattern-consistency failure; preserve the question's answer format.
+    sections:
+      Mathematics: [math_mmk12, wemath2.0_pro]
+      Visual puzzles: [puzzle_puzzlevqa]
+  capability4:
+    description: Multi-image spatial reasoning and comparison
+    domain_guidance: Transfer observed checks across multi-image tasks only when the ledgers support the same alignment, reference-frame, quantifier or evidence-sufficiency failure.
+    sections:
+      Multi-image reasoning: [m4_ScanQA, m4_nuscenes, m4_Spot-the-Diff, mantis_spot-the-diff, mantis_nlvr2, mantis_nextqa, mantis_star, mantis_multi_vqa, mantis_birds-to-words]

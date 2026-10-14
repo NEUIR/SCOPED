@@ -1,0 +1,109 @@
+data:
+  train_files: data/hf_dataset/capability2/train
+  val_files: data/hf_dataset/capability2/test
+  prompt_key: problem
+  answer_key: answer
+  image_key: images
+  video_key: videos
+  image_dir: null
+  video_fps: 2.0
+  max_prompt_length: 8192
+  max_response_length: 4096
+  rollout_batch_size: 128
+  mini_rollout_batch_size: null
+  val_batch_size: 128
+  format_prompt: null
+  override_chat_template: null
+  shuffle: true
+  seed: 1
+  min_pixels: 262144
+  max_pixels: 524288
+  filter_overlong_prompts: true
+algorithm:
+  adv_estimator: grpo
+  disable_kl: true
+  use_kl_loss: true
+  kl_penalty: low_var_kl
+  kl_coef: 0.01
+  online_filtering: true
+  filter_key: overall
+  filter_low: 0.01
+  filter_high: 0.99
+worker:
+  actor:
+    global_batch_size: 64
+    micro_batch_size_per_device_for_update: 1
+    micro_batch_size_per_device_for_experience: 2
+    max_grad_norm: 1.0
+    padding_free: true
+    dynamic_batching: true
+    ulysses_size: 1
+    clip_ratio_dual: 10.0
+    model:
+      model_path: Qwen/Qwen3-VL-8B-Instruct
+      enable_gradient_checkpointing: true
+      trust_remote_code: false
+      freeze_vision_tower: true
+      lora:
+        rank: 0
+        alpha: 64
+        target_modules: all-linear
+        exclude_modules: .*visual.*
+    optim:
+      lr: 1.0e-06
+      weight_decay: 0.01
+      strategy: adamw_bf16
+      lr_warmup_ratio: 0.0
+    fsdp:
+      enable_full_shard: true
+      enable_cpu_offload: false
+      enable_rank0_init: true
+    offload:
+      offload_params: true
+      offload_optimizer: true
+    clip_ratio_low: 0.2
+    clip_ratio_high: 0.28
+  rollout:
+    n: 8
+    temperature: 1.0
+    top_p: 1.0
+    limit_images: 0
+    gpu_memory_utilization: 0.85
+    enforce_eager: false
+    enable_chunked_prefill: false
+    tensor_parallel_size: 2
+    max_num_batched_tokens: 15000
+    disable_tqdm: false
+    val_override_config:
+      temperature: 0.0
+      top_p: 1.0
+      n: 1
+  ref:
+    fsdp:
+      enable_full_shard: true
+      enable_cpu_offload: true
+      enable_rank0_init: true
+    offload:
+      offload_params: false
+  reward:
+    reward_function: src/easyr1/examples/reward_function/r1v_f1.py:compute_score
+trainer:
+  total_epochs: 3
+  max_steps: null
+  project_name: SCOPED
+  experiment_name: scoped_capability2_rl
+  logger:
+  - file
+  nnodes: 1
+  n_gpus_per_node: 4
+  max_try_make_batch: 20
+  val_freq: 50
+  val_before_train: false
+  val_only: false
+  val_generations_to_log: 3
+  save_freq: 50
+  save_limit: 5
+  save_model_only: false
+  save_checkpoint_path: outputs/rl/capability2
+  load_checkpoint_path: null
+  find_last_checkpoint: false

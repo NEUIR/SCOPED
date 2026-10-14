@@ -1,0 +1,146 @@
+{
+  "countbenchqa": {
+    "mode": "greedy",
+    "max_tokens": 2048,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 131072,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 32768,
+    "dtype": "auto",
+    "limit_images": 1
+  },
+  "pixmo-count": {
+    "mode": "greedy",
+    "max_tokens": 2048,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 131072,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 32768,
+    "dtype": "auto",
+    "limit_images": 1
+  },
+  "ccocrv2": {
+    "mode": "greedy",
+    "max_tokens": 1024,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 32768,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": null,
+    "dtype": "bfloat16",
+    "limit_images": 1
+  },
+  "chartqa": {
+    "mode": "greedy",
+    "max_tokens": 2048,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 131072,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 32768,
+    "dtype": "auto",
+    "limit_images": 1
+  },
+  "wemath": {
+    "mode": "greedy",
+    "max_tokens": 16384,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 0.8,
+      "top_k": 20,
+      "presence_penalty": 1.5,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 65536,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 65536,
+    "dtype": "auto",
+    "limit_images": 1
+  },
+  "visualpuzzles": {
+    "mode": "greedy",
+    "max_tokens": 16384,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 131072,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 32768,
+    "dtype": "auto",
+    "limit_images": 1
+  },
+  "muirbench": {
+    "mode": "greedy",
+    "max_tokens": 2048,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 100000,
+    "max_num_seqs": 50,
+    "max_num_batched_tokens": 100000,
+    "dtype": "auto",
+    "limit_images": 32
+  },
+  "mmsi-bench": {
+    "mode": "greedy",
+    "max_tokens": 2048,
+    "sampling": {
+      "temperature": 0.0,
+      "top_p": 1.0,
+      "top_k": -1,
+      "presence_penalty": 0.0,
+      "repetition_penalty": 1.0,
+      "seed": 0
+    },
+    "batch_size": 100,
+    "max_model_len": 131072,
+    "max_num_seqs": 100,
+    "max_num_batched_tokens": 32768,
+    "dtype": "auto",
+    "limit_images": 32
+  }
+}

@@ -1,0 +1,19 @@
+SCOPED original code is licensed under the MIT License in LICENSE.
+Bundled upstream code retains the licenses and notices described below.
+
+SCOPED packages local modified snapshots of two upstream projects:
+
+EasyR1: https://github.com/hiyouga/EasyR1
+veRL: https://github.com/verl-project/verl
+
+Their source copyright headers and Apache-2.0 licenses are retained in
+src/easyr1 and src/verl. The veRL notice is retained as src/verl/Notice.txt.
+
+Packaging changes include portable launch/config files and removal of
+machine-specific legacy skill-path aliases from the public veRL copy, and
+explicit local dataset split mappings in the public EasyR1 copy.
+Private skill texts, credentials, cloud deployment files, model weights,
+training outputs and LlamaFactory are not included in the code release.
+
+The code license does not assign a license to third-party training images
+or annotations. Dataset source licenses must be documented separately.

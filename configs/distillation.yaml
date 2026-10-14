@@ -1,0 +1,97 @@
+# Compose the vendored veRL defaults; launch scripts inject model and data paths.
+defaults:
+  - ppo_trainer
+  - _self_
+
+hydra:
+  searchpath:
+    - pkg://verl.trainer.config
+
+data:
+  prompt_key: prompt
+  image_key: images
+  train_batch_size: 256
+  max_prompt_length: 12288
+  max_response_length: 8096
+  filter_overlong_prompts: true
+  filter_overlong_prompts_workers: 16
+  truncation: error
+  shuffle: true
+
+algorithm:
+  adv_estimator: grpo
+  use_kl_in_reward: false
+
+actor_rollout_ref:
+  model:
+    path: Qwen/Qwen3-VL-8B-Instruct
+    use_remove_padding: true
+    enable_gradient_checkpointing: true
+    override_config:
+      attn_implementation: flash_attention_2
+  actor:
+    use_torch_compile: false
+    use_dynamic_bsz: true
+    ppo_mini_batch_size: 64
+    ppo_max_token_len_per_gpu: 20385
+    optim:
+      lr: 1.0e-6
+      optimizer: AdamW
+      optimizer_impl: torch.optim
+      override_optimizer_config:
+        foreach: false
+    fsdp_config:
+      strategy: fsdp2
+      param_offload: true
+      optimizer_offload: true
+      offload_policy: true
+  rollout:
+    name: vllm
+    tensor_model_parallel_size: 2
+    gpu_memory_utilization: 0.70
+    enforce_eager: false
+    n: 1
+    prompt_length: 12288
+    response_length: 8096
+    max_model_len: 20385
+    max_num_batched_tokens: 8192
+    max_num_seqs: 40
+    log_prob_use_dynamic_bsz: true
+    log_prob_max_token_len_per_gpu: 20385
+    engine_kwargs:
+      vllm:
+        disable_custom_all_reduce: true
+
+reward:
+  custom_reward_function:
+    path: src/verl/examples/on_policy_distillation_trainer/zero_task_reward.py
+    name: compute_score
+
+distillation:
+  enabled: true
+  n_gpus_per_node: 4
+  nnodes: 1
+  gpu_per_slot: 1.0
+  teacher_key: data_source
+  distillation_loss:
+    loss_mode: k1
+    topk: 64
+    use_task_rewards: false
+    use_policy_gradient: true
+    loss_max_clamp: 10.0
+    log_prob_min_clamp: -10.0
+
+trainer:
+  balance_batch: true
+  logger: [console]
+  project_name: SCOPED
+  experiment_name: scoped_4capability_distillation
+  n_gpus_per_node: 4
+  nnodes: 1
+  resume_mode: disable
+  val_before_train: false
+  save_freq: 50
+  test_freq: 200
+  total_epochs: 3
+  max_actor_ckpt_to_keep: 4
+  default_local_dir: outputs/distillation
