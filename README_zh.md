@@ -4,7 +4,6 @@
 
 **SCOPED: Skill-Decoupled On-Policy Expert Distillation for Unified Vision-Language Models** 项目源码。
 
-论文：[arXiv:2610.22217](https://arxiv.org/abs/2610.22217)。
 
 <div align="center">
 
