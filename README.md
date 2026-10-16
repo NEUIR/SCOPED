@@ -4,11 +4,11 @@
 
 Source code for **SCOPED: Skill-Decoupled On-Policy Expert Distillation for Unified Vision-Language Models**.
 
-Paper: coming soon.
+Paper: [arXiv:2610.22217](https://arxiv.org/abs/2610.22217).
 
 <div align="center">
 
-[![Paper](https://img.shields.io/badge/Paper-arXiv%20coming%20soon-red)](#paper)
+[![Paper](https://img.shields.io/badge/arXiv-2610.22217-red)](https://arxiv.org/abs/2610.22217)
 [![Code](https://img.shields.io/badge/Code-GitHub-blue)](https://github.com/NEUIR/SCOPED)
 [![Model 4B](https://img.shields.io/badge/🤗%20Model-SCOPED--4B-blue)](https://huggingface.co/xiongyq/SCOPED-4B)
 [![Model 8B](https://img.shields.io/badge/🤗%20Model-SCOPED--8B-blue)](https://huggingface.co/xiongyq/SCOPED-8B)
