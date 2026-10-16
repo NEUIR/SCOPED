@@ -4,8 +4,6 @@
 
 Source code for **SCOPED: Skill-Decoupled On-Policy Expert Distillation for Unified Vision-Language Models**.
 
-Paper: [arXiv:2610.22217](https://arxiv.org/abs/2610.22217).
-
 <div align="center">
 
 [![Paper](https://img.shields.io/badge/arXiv-2610.22217-red)](https://arxiv.org/abs/2610.22217)
